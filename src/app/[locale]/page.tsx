@@ -122,7 +122,7 @@ export default function Home() {
             <p className="text-2xl leading-none">{t("app-desc")}</p>
             <div className="flex mt-12 items-center gap-4">
               <a
-                href="/edit"
+                href="https://signalmidi.app/edit"
                 className="bg-primary px-12 py-4 rounded-full no-underline text-text font-bold inline-block text-xl border-2 border-transparent transition-all duration-200 shadow-[0_1rem_7rem_#0000004f] flex-shrink-0 hover:bg-[color-mix(in_srgb,var(--color-primary),white_20%)]"
               >
                 {t("launch")}
