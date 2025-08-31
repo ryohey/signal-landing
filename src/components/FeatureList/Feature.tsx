@@ -6,8 +6,8 @@ interface FeatureProps {
   iconBackgroundColor: string
   iconSrc: string
   iconWidth?: string
-  titleKey: Messages
-  descriptionKey: Messages
+  titleKey: keyof Messages
+  descriptionKey: keyof Messages
 }
 
 export const Feature: FC<FeatureProps> = ({
