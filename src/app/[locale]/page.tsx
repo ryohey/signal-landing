@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl"
 import { FeatureList } from "../../components/FeatureList/FeatureList"
 import { Footer } from "../../components/Footer/Footer"
 import { Navigation } from "../../components/Navigation/Navigation"
+import { Link } from "../../i18n/navigation"
 import "./carbon.css"
 import githubIcon from "./images/github-icon.svg"
 import favoriteIcon from "./images/iconmonstr-favorite-4.svg"
@@ -72,13 +73,13 @@ const StoreLink = ({
   src: string
   alt: string
 }) => (
-  <a href={href} target="_blank">
+  <Link href={href} target="_blank">
     <img
       src={src}
       alt={alt}
       className="h-12 bg-black border border-white/30 rounded transition-all duration-200 hover:border-white"
     />
-  </a>
+  </Link>
 )
 
 const SupportRow = ({
@@ -93,13 +94,13 @@ const SupportRow = ({
   description: React.ReactNode
 }) => (
   <div className="flex items-center mb-4">
-    <a
+    <Link
       href={href}
       className="text-sm inline-flex border-2 border-gray-600 rounded px-4 py-2 text-white no-underline items-center shrink-0"
     >
       <img src={iconSrc} className="mr-3" />
       {linkText}
-    </a>
+    </Link>
     <span className="pl-4 text-sm opacity-60">{description}</span>
   </div>
 )
@@ -167,13 +168,13 @@ export default function Home() {
         </div>
 
         <div>
-          <a
+          <Link
             href="https://github.com/sponsors/ryohey"
             className="inline-flex items-center font-semibold bg-pink-500/15 rounded px-6 py-4 text-white no-underline border-2 border-transparent transition-all duration-200 hover:border-pink-500"
           >
             <img src={favoriteIcon.src} className="mr-3 w-5" />
             <span>{t("open-github-sponsors")}</span>
-          </a>
+          </Link>
         </div>
       </Section>
 

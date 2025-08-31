@@ -1,18 +1,19 @@
 import { useTranslations } from "next-intl"
+import { Link } from "../../i18n/navigation"
 
-const Link = ({
+const FooterLink = ({
   href,
   children,
 }: {
   href: string
   children: React.ReactNode
 }) => (
-  <a
+  <Link
     href={href}
     className="text-xs text-white opacity-50 no-underline hover:opacity-100"
   >
     {children}
-  </a>
+  </Link>
 )
 
 export const Footer = () => {
@@ -21,8 +22,8 @@ export const Footer = () => {
   return (
     <footer>
       <div className="flex gap-4 py-8 justify-center items-center max-w-4xl w-full mx-auto">
-        <Link href="/support">{t("support")}</Link>
-        <Link href="/privacy">{t("privacy-policy-title")}</Link>
+        <FooterLink href="/support">{t("support")}</FooterLink>
+        <FooterLink href="/privacy">{t("privacy-policy-title")}</FooterLink>
       </div>
     </footer>
   )

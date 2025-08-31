@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { useTranslations } from "next-intl"
 import { Footer } from "../../../components/Footer/Footer"
 import { Navigation } from "../../../components/Navigation/Navigation"
+import { Link } from "../../../i18n/navigation"
 
 export const metadata: Metadata = {
   title: "Support | signal",
@@ -27,12 +28,12 @@ const OpenButton = ({
   href: string
   children: React.ReactNode
 }) => (
-  <a
+  <Link
     href={href}
     className="mt-4 block bg-primary text-white py-2 px-4 rounded-full no-underline font-bold inline-block text-base border-2 border-transparent hover:opacity-90"
   >
     {children}
-  </a>
+  </Link>
 )
 
 export default function Page() {
