@@ -1,7 +1,4 @@
-import { withKumaUI } from "@kuma-ui/next-plugin"
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-}
+const nextConfig = {}
 
-export default withKumaUI(nextConfig)
+export default nextConfig

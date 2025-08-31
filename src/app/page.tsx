@@ -1,9 +1,9 @@
-import { styled } from "@kuma-ui/core"
 import { Metadata } from "next"
 import { FeatureList } from "../components/FeatureList/FeatureList"
 import { Footer } from "../components/Footer/Footer"
 import Localized from "../components/Localized"
 import { Navigation } from "../components/Navigation/Navigation"
+import "./carbon.css"
 import githubIcon from "./images/github-icon.svg"
 import favoriteIcon from "./images/iconmonstr-favorite-4.svg"
 import twitterIcon from "./images/iconmonstr-twitter-1.svg"
@@ -32,317 +32,175 @@ export const metadata: Metadata = {
   },
 }
 
-const Hero = styled.section`
-  background: #1f1f23;
-  color: white;
-  overflow: hidden;
+const SectionContent = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode
+  className?: string
+}) => (
+  <div className={`py-20 max-w-4xl w-[90%] mx-auto ${className || ""}`}>
+    {children}
+  </div>
+)
 
-  > div {
-    display: flex;
-  }
-  .text h1 {
-    font-weight: 800;
-    font-size: 3.2rem;
-    line-height: 1;
-    margin: 0 0 1rem 0;
-  }
-  .image {
-    width: 35%;
-    padding-left: 2rem;
-  }
-  .image img {
-    width: 34rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 1rem 8rem #0000004f;
-  }
-  .text .description {
-    font-size: 1.4rem;
-    line-height: 1;
-  }
+const Section = ({
+  title,
+  children,
+  className,
+}: {
+  title: React.ReactNode
+  children: React.ReactNode
+  className?: string
+}) => (
+  <section className={className}>
+    <SectionContent className="flex max-md:flex-col-reverse">
+      <div className="flex-1 flex flex-col">
+        <h3 className="text-2xl font-bold mb-6">{title}</h3>
+        {children}
+      </div>
+    </SectionContent>
+  </section>
+)
 
-  @media screen and (max-width: 896px) {
-    .content {
-      flex-direction: column;
-    }
+const StoreLink = ({
+  href,
+  src,
+  alt,
+}: {
+  href: string
+  src: string
+  alt: string
+}) => (
+  <a href={href} target="_blank">
+    <img
+      src={src}
+      alt={alt}
+      className="h-12 bg-black border border-white/30 rounded transition-all duration-200 hover:border-white"
+    />
+  </a>
+)
 
-    .text h1 {
-      font-size: 2.5rem;
-    }
-
-    .image {
-      padding: 0;
-      width: 100%;
-    }
-
-    .image img {
-      margin-top: 3rem;
-      width: 100%;
-    }
-  }
-`
-
-const Platform = styled.div`
-  color: var(--secondaryTextColor);
-  font-size: 0.9rem;
-`
-
-const SectionContent = styled.div`
-  padding: 5rem 0;
-  max-width: 60rem;
-  width: 90%;
-  margin: 0 auto;
-`
-
-const SectionTitle = styled.h3`
-  font-size: 1.5rem;
-`
-
-const LaunchWrapper = styled.div`
-  display: flex;
-  margin-top: 3rem;
-  align-items: center;
-  gap: 1rem;
-`
-
-const LaunchButton = styled.a`
-  background: var(--themeColor);
-  padding: 1rem 3rem;
-  border-radius: 9999px;
-  text-decoration: none;
-  color: var(--textColor);
-  font-weight: bold;
-  display: inline-block;
-  font-size: 1.2rem;
-  border: 2px solid transparent;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    color 0.2s ease;
-  box-shadow: 0 1rem 7rem #0000004f;
-  flex-shrink: 0;
-
-  &:hover {
-    background: color-mix(in srgb, var(--themeColor), white 20%);
-  }
-`
-
-const StoreIntro = styled.p`
-  color: var(--secondaryTextColor);
-  margin-bottom: 0.5rem;
-`
-
-const StoreIcon = styled.img`
-  height: 3rem;
-  background: black;
-  border: 1px solid #ffffff4f;
-  border-radius: 0.3rem;
-  transition: 0.2s ease;
-
-  &:hover {
-    border-color: #ffffff;
-  }
-`
-
-const SponsorSection = styled.section`
-  background: #1f1f23;
-`
-
-const SponsorIntro = styled.div`
-  width: 40em;
-  line-height: 1.9;
-  margin-bottom: 1.5em;
-  max-width: 100%;
-`
-
-const SponsorButton = styled.a`
-  display: inline-flex;
-  align-items: center;
-  font-weight: 600;
-  background: #bb5d9029;
-  border-radius: 0.3em;
-  padding: 1em 1.5em;
-  color: white;
-  text-decoration: none;
-  border: 2px solid transparent;
-  transition: 0.2s ease;
-
-  &:hover {
-    border-color: #bb5d90;
-  }
-
-  img {
-    margin-right: 0.7em;
-    width: 1.2em;
-  }
-`
-
-const Features = styled.section`
-  .content {
-    display: flex;
-  }
-
-  .content .left {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .content .right {
-    flex-shrink: 0;
-    min-width: 342px;
-  }
-
-  @media screen and (max-width: 896px) {
-    .content {
-      flex-direction: column-reverse;
-    }
-  }
-`
-
-const ExternalLink = styled.a`
-  font-size: 0.9rem;
-  display: inline-flex;
-  border: #3b3b44 2px solid;
-  border-radius: 0.3em;
-  padding: 0.5em 1em;
-  color: white;
-  text-decoration: none;
-  align-items: center;
-
-  img {
-    margin-right: 0.7em;
-  }
-`
-
-const SupportRow = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-
-  span {
-    padding-left: 1em;
-    font-size: 0.9rem;
-    opacity: 0.6;
-  }
-`
-
-const CarbonAd = styled.div`
-  position: fixed;
-  right: 0;
-  bottom: 0;
-`
+const SupportRow = ({
+  href,
+  iconSrc,
+  linkText,
+  description,
+}: {
+  href: string
+  iconSrc: string
+  linkText: string
+  description: React.ReactNode
+}) => (
+  <div className="flex items-center mb-4">
+    <a
+      href={href}
+      className="text-sm inline-flex border-2 border-gray-600 rounded px-4 py-2 text-white no-underline items-center shrink-0"
+    >
+      <img src={iconSrc} className="mr-3" />
+      {linkText}
+    </a>
+    <span className="pl-4 text-sm opacity-60">{description}</span>
+  </div>
+)
 
 export default function Home() {
   return (
     <>
       <Navigation />
 
-      <Hero>
-        <SectionContent className="content">
-          <div className="text">
-            <h1>
+      <section className="text-white overflow-hidden">
+        <SectionContent className="flex flex-col md:flex-row gap-8">
+          <div>
+            <h1 className="font-extrabold text-5xl leading-none mb-4">
               <Localized name="app-intro" />
             </h1>
-            <p className="description">
+            <p className="text-2xl leading-none">
               <Localized name="app-desc" />
             </p>
-            <LaunchWrapper>
-              <LaunchButton href="edit">
+            <div className="flex mt-12 items-center gap-4">
+              <a
+                href="edit"
+                className="bg-primary px-12 py-4 rounded-full no-underline text-text font-bold inline-block text-xl border-2 border-transparent transition-all duration-200 shadow-[0_1rem_7rem_#0000004f] flex-shrink-0 hover:bg-[color-mix(in_srgb,var(--color-primary),white_20%)]"
+              >
                 <Localized name="launch" />
-              </LaunchButton>
-              <Platform>
+              </a>
+              <div className="text-text-secondary text-sm">
                 <Localized name="supported-browsers-label" />
                 <br />
                 <Localized name="supported-browsers-body" />
-              </Platform>
-            </LaunchWrapper>
-            <div style={{ marginTop: "4rem" }}>
-              <StoreIntro>
+              </div>
+            </div>
+            <div className="mt-16">
+              <p className="text-text-secondary mb-2">
                 <Localized name="store-intro" />
-              </StoreIntro>
-              <div style={{ display: "flex", gap: "1rem" }}>
-                <a
+              </p>
+              <div className="flex gap-4">
+                <StoreLink
                   href="https://apps.apple.com/us/app/signal-midi-editor/id6499489458"
-                  target="_blank"
-                >
-                  <StoreIcon src={macAppStore.src} alt="Mac App Store" />
-                </a>
-                <a
+                  src={macAppStore.src}
+                  alt="Mac App Store"
+                />
+                <StoreLink
                   href="https://apps.microsoft.com/store/detail/9NTLRJSL8SZC?cid=DevShareMCLPCB"
-                  target="_blank"
-                >
-                  <StoreIcon src={microsoftStore.src} alt="Microsoft Store" />
-                </a>
+                  src={microsoftStore.src}
+                  alt="Microsoft Store"
+                />
               </div>
             </div>
           </div>
-          <div className="image">
-            <img src={screenshot.src} alt="Screenshot" />
+          <div className="w-full md:w-[35%]">
+            <img
+              src={screenshot.src}
+              alt="Screenshot"
+              className="md:w-[34rem] md:max-w-none rounded-lg shadow-[0_1rem_8rem_#0000004f]"
+            />
           </div>
-        </SectionContent>
-      </Hero>
-
-      <Features>
-        <SectionContent className="content">
-          <div className="left">
-            <SectionTitle>
-              <Localized name="features" />
-            </SectionTitle>
-            <FeatureList />
-          </div>
-        </SectionContent>
-      </Features>
-
-      <SponsorSection>
-        <SectionContent>
-          <SectionTitle>
-            <Localized name="become-sponsor" />
-          </SectionTitle>
-          <SponsorIntro>
-            <Localized name="sponsor-intro" />
-          </SponsorIntro>
-
-          <SponsorButton href="https://github.com/sponsors/ryohey">
-            <img src={favoriteIcon.src} />
-            <span>
-              <Localized name="open-github-sponsors" />
-            </span>
-          </SponsorButton>
-        </SectionContent>
-      </SponsorSection>
-
-      <section id="support">
-        <SectionContent>
-          <SectionTitle>
-            <Localized name="support" />
-          </SectionTitle>
-
-          <SupportRow>
-            <ExternalLink href="https://twitter.com/signalmidi">
-              <img src={twitterIcon.src} />
-              @signalmidi
-            </ExternalLink>
-            <span>
-              <Localized name="follow-twitter" />
-            </span>
-          </SupportRow>
-
-          <SupportRow>
-            <ExternalLink href="https://github.com/ryohey/signal">
-              <img src={githubIcon.src} />
-              ryohey/signal
-            </ExternalLink>
-            <span>
-              <Localized name="support-github-desctiption" />
-            </span>
-          </SupportRow>
         </SectionContent>
       </section>
 
+      <Section title={<Localized name="features" />}>
+        <FeatureList />
+      </Section>
+
+      <Section title={<Localized name="become-sponsor" />}>
+        <div className="max-w-2xl leading-relaxed mb-6">
+          <Localized name="sponsor-intro" />
+        </div>
+
+        <div>
+          <a
+            href="https://github.com/sponsors/ryohey"
+            className="inline-flex items-center font-semibold bg-pink-500/15 rounded px-6 py-4 text-white no-underline border-2 border-transparent transition-all duration-200 hover:border-pink-500"
+          >
+            <img src={favoriteIcon.src} className="mr-3 w-5" />
+            <span>
+              <Localized name="open-github-sponsors" />
+            </span>
+          </a>
+        </div>
+      </Section>
+
+      <Section title={<Localized name="support" />}>
+        <SupportRow
+          href="https://twitter.com/signalmidi"
+          iconSrc={twitterIcon.src}
+          linkText="@signalmidi"
+          description={<Localized name="follow-twitter" />}
+        />
+
+        <SupportRow
+          href="https://github.com/ryohey/signal"
+          iconSrc={githubIcon.src}
+          linkText="ryohey/signal"
+          description={<Localized name="support-github-desctiption" />}
+        />
+      </Section>
+
       <Footer />
 
-      <CarbonAd
-        className="right"
+      <div
+        className="fixed right-0 bottom-0"
         dangerouslySetInnerHTML={{
           __html: `
       <script
