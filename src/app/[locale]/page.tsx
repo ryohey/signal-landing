@@ -1,5 +1,5 @@
-import { Metadata } from "next"
-import { useTranslations } from "next-intl"
+import { Locale, useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 import { FeatureList } from "../../components/FeatureList/FeatureList"
 import { Footer } from "../../components/Footer/Footer"
 import { Navigation } from "../../components/Navigation/Navigation"
@@ -11,26 +11,27 @@ import twitterIcon from "./images/iconmonstr-twitter-1.svg"
 import macAppStore from "./images/mac-app-store.svg"
 import microsoftStore from "./images/microsoft-store.svg"
 import screenshot from "./images/screenshot.png"
-import twitterCard from "./images/twitter-card.png"
 
-export const metadata: Metadata = {
-  title: "signal - Online MIDI Editor",
-  description: "Fully Open-sourced Online MIDI Editor",
-  openGraph: {
-    title: "signal",
-    description: "Fully Open-sourced Online MIDI Editor",
-    images: [
-      {
-        url: twitterCard.src,
-        width: 1200,
-        height: 630,
-        alt: "signal",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  return {
+    title: t("landing-title"),
+    alternates: {
+      languages: {
+        en: "https://signalmidi.app/en/",
+        ja: "https://signalmidi.app/ja/",
+        fr: "https://signalmidi.app/fr/",
+        "zh-hans": "https://signalmidi.app/zh-hans/",
+        "zh-hant": "https://signalmidi.app/zh-hant/",
       },
-    ],
-  },
-  twitter: {
-    card: "summary",
-  },
+    },
+  }
 }
 
 const SectionContent = ({

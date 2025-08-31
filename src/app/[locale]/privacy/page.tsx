@@ -1,11 +1,29 @@
-import { Metadata } from "next"
-import { useTranslations } from "next-intl"
+import { Locale, useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 import { Footer } from "../../../components/Footer/Footer"
 import { Navigation } from "../../../components/Navigation/Navigation"
 import { LocaleDate } from "./LocaleDate"
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | signal",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  return {
+    title: `${t("privacy-policy-title")} | signal`,
+    alternates: {
+      languages: {
+        en: "https://signalmidi.app/en/privacy",
+        ja: "https://signalmidi.app/ja/privacy",
+        fr: "https://signalmidi.app/fr/privacy",
+        "zh-hans": "https://signalmidi.app/zh-hans/privacy",
+        "zh-hant": "https://signalmidi.app/zh-hant/privacy",
+      },
+    },
+  }
 }
 
 const Section = ({

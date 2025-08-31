@@ -1,11 +1,29 @@
-import { Metadata } from "next"
-import { useTranslations } from "next-intl"
+import { Locale, useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
 import { Footer } from "../../../components/Footer/Footer"
 import { Navigation } from "../../../components/Navigation/Navigation"
 import { Link } from "../../../i18n/navigation"
 
-export const metadata: Metadata = {
-  title: "Support | signal",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  return {
+    title: `${t("support")} | signal`,
+    alternates: {
+      languages: {
+        en: "https://signalmidi.app/en/support",
+        ja: "https://signalmidi.app/ja/support",
+        fr: "https://signalmidi.app/fr/support",
+        "zh-hans": "https://signalmidi.app/zh-hans/support",
+        "zh-hant": "https://signalmidi.app/zh-hant/support",
+      },
+    },
+  }
 }
 
 const Section = ({
