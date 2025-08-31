@@ -1,4 +1,3 @@
-import { styled } from "@kuma-ui/core"
 import { Metadata } from "next"
 import { Footer } from "../../components/Footer/Footer"
 import Localized from "../../components/Localized"
@@ -9,68 +8,48 @@ export const metadata: Metadata = {
   title: "Privacy Policy | signal",
 }
 
-const Content = styled.div`
-  max-width: 60rem;
-  width: 100%;
-  margin: 0 auto;
-`
-
-const Title = styled.h1`
-  margin-top: 4rem;
-`
-
-const Section = styled.section`
-  margin: 3rem 0;
-`
-
-const SectionTitle = styled.h2`
-  font-size: 1.25rem;
-  margin-top: 2rem;
-`
-
-const SectionContent = styled.div`
-  margin-top: 1rem;
-`
+const Section = ({
+  title,
+  children,
+}: {
+  title: React.ReactNode
+  children: React.ReactNode
+}) => (
+  <section className="my-12">
+    <h2 className="text-xl font-bold mt-8">{title}</h2>
+    <div className="mt-4">{children}</div>
+  </section>
+)
 
 export default function Page() {
   return (
     <>
       <Navigation />
-      <Content>
-        <Title>
+      <div className="max-w-4xl w-[90%] mx-auto">
+        <h1 className="mt-16 text-3xl font-bold mt-4">
           <Localized name="privacy-policy-title" />
-        </Title>
+        </h1>
         <p>
           <Localized name="privacy-policy-description" />
         </p>
 
-        <Section>
-          <SectionTitle>
-            <Localized name="privacy-data-title" />
-          </SectionTitle>
-          <SectionContent>
-            <p>
-              <Localized name="privacy-data-description" />
-            </p>
-          </SectionContent>
+        <Section title={<Localized name="privacy-data-title" />}>
+          <p>
+            <Localized name="privacy-data-description" />
+          </p>
         </Section>
 
-        <Section>
-          <SectionTitle>
-            <Localized name="privacy-analytics-title" />
-          </SectionTitle>
-          <SectionContent>
-            <p>
-              <Localized name="privacy-analytics-description" />
-            </p>
-          </SectionContent>
+        <Section title={<Localized name="privacy-analytics-title" />}>
+          <p>
+            <Localized name="privacy-analytics-description" />
+          </p>
         </Section>
 
         <p>
           <Localized name="privacy-updated" />
           <LocaleDate date={new Date("2024/05/03")} />
         </p>
-      </Content>
+      </div>
 
       <Footer />
     </>

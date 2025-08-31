@@ -1,4 +1,3 @@
-import { styled } from "@kuma-ui/core"
 import { Metadata } from "next"
 import { Footer } from "../../components/Footer/Footer"
 import Localized from "../../components/Localized"
@@ -8,92 +7,70 @@ export const metadata: Metadata = {
   title: "Support | signal",
 }
 
-const Content = styled.div`
-  max-width: 60rem;
-  width: 100%;
-  margin: 0 auto;
-`
+const Section = ({
+  title,
+  children,
+}: {
+  title: React.ReactNode
+  children: React.ReactNode
+}) => (
+  <section className="my-12">
+    <h2 className="text-2xl font-bold">{title}</h2>
+    <div className="mt-4">{children}</div>
+  </section>
+)
 
-const Title = styled.h1`
-  margin-top: 4rem;
-`
-
-const Section = styled.section`
-  margin: 3rem 0;
-`
-
-const SectionContent = styled.div`
-  margin-top: 1rem;
-`
-
-const OpenButton = styled.a`
-  display: block;
-  background: var(--themeColor);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  font-size: 1rem;
-  border: 2px solid transparent;
-
-  &:hover {
-    opacity: 0.9;
-  }
-`
+const OpenButton = ({
+  href,
+  children,
+}: {
+  href: string
+  children: React.ReactNode
+}) => (
+  <a
+    href={href}
+    className="mt-4 block bg-primary text-white py-2 px-4 rounded-full no-underline font-bold inline-block text-base border-2 border-transparent hover:opacity-90"
+  >
+    {children}
+  </a>
+)
 
 export default function Page() {
   return (
     <>
       <Navigation />
-      <Content>
-        <Title>
+      <div className="max-w-4xl w-[90%] mx-auto">
+        <h1 className="mt-16 text-3xl font-bold">
           <Localized name="support" />
-        </Title>
+        </h1>
 
-        <Section>
-          <h2>
-            <Localized name="bug-report" />
-          </h2>
-          <SectionContent>
-            <p>
-              <Localized name="bug-report-description" />
-            </p>
-            <OpenButton href="https://github.com/ryohey/signal/issues">
-              <Localized name="open-github-issues" />
-            </OpenButton>
-          </SectionContent>
+        <Section title={<Localized name="bug-report" />}>
+          <p>
+            <Localized name="bug-report-description" />
+          </p>
+          <OpenButton href="https://github.com/ryohey/signal/issues">
+            <Localized name="open-github-issues" />
+          </OpenButton>
         </Section>
 
-        <Section>
-          <h2>
-            <Localized name="community" />
-          </h2>
-          <SectionContent>
-            <p>
-              <Localized name="community-description" />
-            </p>
-            <OpenButton href="https://discord.com/invite/XQxzNdDJse">
-              <Localized name="join-discord" />
-            </OpenButton>
-          </SectionContent>
+        <Section title={<Localized name="community" />}>
+          <p>
+            <Localized name="community-description" />
+          </p>
+          <OpenButton href="https://discord.com/invite/XQxzNdDJse">
+            <Localized name="join-discord" />
+          </OpenButton>
         </Section>
 
-        <Section>
-          <h2>
-            <Localized name="twitter" />
-          </h2>
-          <SectionContent>
-            <p>
-              <Localized name="follow-twitter" />
-            </p>
-            <OpenButton href="https://twitter.com/signalmidi">
-              @signalmidi
-            </OpenButton>
-          </SectionContent>
+        <Section title={<Localized name="twitter" />}>
+          <p>
+            <Localized name="follow-twitter" />
+          </p>
+          <OpenButton href="https://twitter.com/signalmidi">
+            @signalmidi
+          </OpenButton>
         </Section>
-      </Content>
+      </div>
 
       <Footer />
     </>

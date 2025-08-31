@@ -1,7 +1,6 @@
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { Inter } from "next/font/google"
 import { Provider } from "./Provider"
-import "./carbon.css"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })

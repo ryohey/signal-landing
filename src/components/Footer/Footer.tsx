@@ -1,40 +1,20 @@
-import { styled } from "@kuma-ui/core"
 import Localized from "../Localized"
 
-const Content = styled.div`
-  display: flex;
-  gap: 1rem;
-  padding: 2rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 60rem;
-  width: 100%;
-  margin: 0 auto;
-`
-
-const Link = styled.a`
-  font-size: 0.8rem;
-  color: white;
-  opacity: 0.5;
-  text-decoration: none;
-
-  &:hover {
-    opacity: 1;
-  }
-`
+const Link = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <a href={href} className="text-xs text-white opacity-50 no-underline hover:opacity-100">{children}</a>
+)
 
 export const Footer = () => {
   return (
     <footer>
-      <Content>
+      <div className="flex gap-4 py-8 justify-center items-center max-w-4xl w-full mx-auto">
         <Link href="/support">
           <Localized name="support" />
         </Link>
         <Link href="/privacy">
           <Localized name="privacy-policy-title" />
         </Link>
-      </Content>
+      </div>
     </footer>
   )
 }

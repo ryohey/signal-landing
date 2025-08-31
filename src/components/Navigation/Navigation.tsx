@@ -1,81 +1,28 @@
-import { styled } from "@kuma-ui/core"
 import Localized from "../Localized"
 import discordIcon from "./images/discord-icon.svg"
 import githubIcon from "./images/github-icon.svg"
 import logoWhite from "./images/logo-white.svg"
 
-const Header = styled.header`
-  background: #1f1f23;
-`
-
-const Content = styled.div`
-  padding: 2rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 60rem;
-  width: 90%;
-  margin: 0 auto;
-`
-
-const LogoLink = styled.a`
-  display: flex;
-
-  img {
-    height: 1.7rem;
-  }
-
-  &:hover {
-    opacity: 0.7;
-  }
-`
-
-const Menu = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  & > a {
-    color: white;
-    text-decoration: none;
-    font-size: 0.9rem;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
-`
-
-const IconLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-
-  img {
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: white;
-  }
-`
 
 export const Navigation = () => {
   return (
-    <Header>
-      <Content>
-        <LogoLink href="/">
+    <header className="bg-background">
+      <div className="py-8 flex justify-between items-center max-w-4xl w-[90%] mx-auto">
+        <a href="/" className="flex hover:opacity-70 [&_img]:h-7">
           <img src={logoWhite.src} />
-        </LogoLink>
-        <Menu>
-          <a href="/support" style={{ marginRight: "1rem" }}>
+        </a>
+        <div className="flex items-center gap-4 [&>a]:text-white [&>a]:no-underline [&>a]:text-sm [&>a]:hover:opacity-70">
+          <a href="/support" className="mr-4">
             <Localized name="support" />
           </a>
-          <IconLink href="https://discord.com/invite/XQxzNdDJse">
+          <a href="https://discord.com/invite/XQxzNdDJse" className="inline-flex items-center [&_img]:w-6 [&_img]:h-6 [&_img]:fill-white">
             <img src={discordIcon.src} />
-          </IconLink>
-          <IconLink href="https://github.com/ryohey/signal/" id="github-link">
+          </a>
+          <a href="https://github.com/ryohey/signal/" id="github-link" className="inline-flex items-center [&_img]:w-6 [&_img]:h-6 [&_img]:fill-white">
             <img src={githubIcon.src} />
-          </IconLink>
-        </Menu>
-      </Content>
-    </Header>
+          </a>
+        </div>
+      </div>
+    </header>
   )
 }
