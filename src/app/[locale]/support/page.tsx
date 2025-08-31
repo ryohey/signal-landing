@@ -1,7 +1,7 @@
 import { Metadata } from "next"
-import { Footer } from "../../components/Footer/Footer"
-import Localized from "../../components/Localized"
-import { Navigation } from "../../components/Navigation/Navigation"
+import { useTranslations } from "next-intl"
+import { Footer } from "../../../components/Footer/Footer"
+import { Navigation } from "../../../components/Navigation/Navigation"
 
 export const metadata: Metadata = {
   title: "Support | signal",
@@ -36,36 +36,30 @@ const OpenButton = ({
 )
 
 export default function Page() {
+  const t = useTranslations()
+
   return (
     <>
       <Navigation />
       <div className="max-w-4xl w-[90%] mx-auto">
-        <h1 className="mt-16 text-3xl font-bold">
-          <Localized name="support" />
-        </h1>
+        <h1 className="mt-16 text-3xl font-bold">{t("support")}</h1>
 
-        <Section title={<Localized name="bug-report" />}>
-          <p>
-            <Localized name="bug-report-description" />
-          </p>
+        <Section title={t("bug-report")}>
+          <p>{t("bug-report-description")}</p>
           <OpenButton href="https://github.com/ryohey/signal/issues">
-            <Localized name="open-github-issues" />
+            {t("open-github-issues")}
           </OpenButton>
         </Section>
 
-        <Section title={<Localized name="community" />}>
-          <p>
-            <Localized name="community-description" />
-          </p>
+        <Section title={t("community")}>
+          <p>{t("community-description")}</p>
           <OpenButton href="https://discord.com/invite/XQxzNdDJse">
-            <Localized name="join-discord" />
+            {t("join-discord")}
           </OpenButton>
         </Section>
 
-        <Section title={<Localized name="twitter" />}>
-          <p>
-            <Localized name="follow-twitter" />
-          </p>
+        <Section title={t("twitter")}>
+          <p>{t("follow-twitter")}</p>
           <OpenButton href="https://twitter.com/signalmidi">
             @signalmidi
           </OpenButton>

@@ -1,6 +1,6 @@
 import { GoogleAnalytics } from "@next/third-parties/google"
+import { NextIntlClientProvider } from "next-intl"
 import { Inter } from "next/font/google"
-import { Provider } from "./Provider"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -11,7 +11,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <Provider>
+    <NextIntlClientProvider>
       <html lang="en">
         <GoogleAnalytics gaId="G-C4N96XS293" />
         <head>
@@ -55,6 +55,6 @@ export default function RootLayout({
         </head>
         <body className={inter.className}>{children}</body>
       </html>
-    </Provider>
+    </NextIntlClientProvider>
   )
 }
