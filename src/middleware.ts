@@ -1,7 +1,22 @@
 import createMiddleware from "next-intl/middleware"
+import { NextResponse } from "next/server"
 import { routing } from "./i18n/routing"
 
-export default createMiddleware(routing)
+const intl = createMiddleware(routing)
+const locales = routing.locales
+
+export default function middleware(req: Request) {
+  const url = new URL(req.url)
+  const p = url.pathname
+
+  // Prevent redirect loops when rewriting from a different domain
+  if (
+    locales.some((locale) => p === `/${locale}` || p.startsWith(`/${locale}/`))
+  ) {
+    return NextResponse.next()
+  }
+  return intl(req as any)
+}
 
 export const config = {
   // Match all pathnames except for
