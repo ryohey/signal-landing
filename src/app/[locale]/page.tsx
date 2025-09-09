@@ -1,8 +1,9 @@
-import { Metadata } from "next"
-import { FeatureList } from "../components/FeatureList/FeatureList"
-import { Footer } from "../components/Footer/Footer"
-import Localized from "../components/Localized"
-import { Navigation } from "../components/Navigation/Navigation"
+import { Locale, useTranslations } from "next-intl"
+import { getTranslations } from "next-intl/server"
+import { FeatureList } from "../../components/FeatureList/FeatureList"
+import { Footer } from "../../components/Footer/Footer"
+import { Navigation } from "../../components/Navigation/Navigation"
+import { Link } from "../../i18n/navigation"
 import "./carbon.css"
 import githubIcon from "./images/github-icon.svg"
 import favoriteIcon from "./images/iconmonstr-favorite-4.svg"
@@ -10,26 +11,27 @@ import twitterIcon from "./images/iconmonstr-twitter-1.svg"
 import macAppStore from "./images/mac-app-store.svg"
 import microsoftStore from "./images/microsoft-store.svg"
 import screenshot from "./images/screenshot.png"
-import twitterCard from "./images/twitter-card.png"
 
-export const metadata: Metadata = {
-  title: "signal - Online MIDI Editor",
-  description: "Fully Open-sourced Online MIDI Editor",
-  openGraph: {
-    title: "signal",
-    description: "Fully Open-sourced Online MIDI Editor",
-    images: [
-      {
-        url: twitterCard.src,
-        width: 1200,
-        height: 630,
-        alt: "signal",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations({ locale })
+
+  return {
+    title: t("landing-title"),
+    alternates: {
+      languages: {
+        en: "https://signalmidi.app/en/",
+        ja: "https://signalmidi.app/ja/",
+        fr: "https://signalmidi.app/fr/",
+        "zh-hans": "https://signalmidi.app/zh-hans/",
+        "zh-hant": "https://signalmidi.app/zh-hant/",
       },
-    ],
-  },
-  twitter: {
-    card: "summary",
-  },
+    },
+  }
 }
 
 const SectionContent = ({
@@ -72,13 +74,13 @@ const StoreLink = ({
   src: string
   alt: string
 }) => (
-  <a href={href} target="_blank">
+  <Link href={href} target="_blank">
     <img
       src={src}
       alt={alt}
       className="h-12 bg-black border border-white/30 rounded transition-all duration-200 hover:border-white"
     />
-  </a>
+  </Link>
 )
 
 const SupportRow = ({
@@ -93,18 +95,20 @@ const SupportRow = ({
   description: React.ReactNode
 }) => (
   <div className="flex items-center mb-4">
-    <a
+    <Link
       href={href}
       className="text-sm inline-flex border-2 border-gray-600 rounded px-4 py-2 text-white no-underline items-center shrink-0"
     >
       <img src={iconSrc} className="mr-3" />
       {linkText}
-    </a>
+    </Link>
     <span className="pl-4 text-sm opacity-60">{description}</span>
   </div>
 )
 
 export default function Home() {
+  const t = useTranslations()
+
   return (
     <>
       <Navigation />
@@ -113,28 +117,24 @@ export default function Home() {
         <SectionContent className="flex flex-col md:flex-row gap-8">
           <div>
             <h1 className="font-extrabold text-5xl leading-none mb-4">
-              <Localized name="app-intro" />
+              {t("app-intro")}
             </h1>
-            <p className="text-2xl leading-none">
-              <Localized name="app-desc" />
-            </p>
+            <p className="text-2xl leading-none">{t("app-desc")}</p>
             <div className="flex mt-12 items-center gap-4">
               <a
-                href="edit"
+                href="https://signalmidi.app/edit"
                 className="bg-primary px-12 py-4 rounded-full no-underline text-text font-bold inline-block text-xl border-2 border-transparent transition-all duration-200 shadow-[0_1rem_7rem_#0000004f] flex-shrink-0 hover:bg-[color-mix(in_srgb,var(--color-primary),white_20%)]"
               >
-                <Localized name="launch" />
+                {t("launch")}
               </a>
               <div className="text-text-secondary text-sm">
-                <Localized name="supported-browsers-label" />
+                {t("supported-browsers-label")}
                 <br />
-                <Localized name="supported-browsers-body" />
+                {t("supported-browsers-body")}
               </div>
             </div>
             <div className="mt-16">
-              <p className="text-text-secondary mb-2">
-                <Localized name="store-intro" />
-              </p>
+              <p className="text-text-secondary mb-2">{t("store-intro")}</p>
               <div className="flex gap-4">
                 <StoreLink
                   href="https://apps.apple.com/us/app/signal-midi-editor/id6499489458"
@@ -159,41 +159,39 @@ export default function Home() {
         </SectionContent>
       </section>
 
-      <Section title={<Localized name="features" />}>
+      <Section title={t("features")}>
         <FeatureList />
       </Section>
 
-      <Section title={<Localized name="become-sponsor" />}>
+      <Section title={t("become-sponsor")}>
         <div className="max-w-2xl leading-relaxed mb-6">
-          <Localized name="sponsor-intro" />
+          {t("sponsor-intro")}
         </div>
 
         <div>
-          <a
+          <Link
             href="https://github.com/sponsors/ryohey"
             className="inline-flex items-center font-semibold bg-pink-500/15 rounded px-6 py-4 text-white no-underline border-2 border-transparent transition-all duration-200 hover:border-pink-500"
           >
             <img src={favoriteIcon.src} className="mr-3 w-5" />
-            <span>
-              <Localized name="open-github-sponsors" />
-            </span>
-          </a>
+            <span>{t("open-github-sponsors")}</span>
+          </Link>
         </div>
       </Section>
 
-      <Section title={<Localized name="support" />}>
+      <Section title={t("support")}>
         <SupportRow
           href="https://twitter.com/signalmidi"
           iconSrc={twitterIcon.src}
           linkText="@signalmidi"
-          description={<Localized name="follow-twitter" />}
+          description={t("follow-twitter")}
         />
 
         <SupportRow
           href="https://github.com/ryohey/signal"
           iconSrc={githubIcon.src}
           linkText="ryohey/signal"
-          description={<Localized name="support-github-desctiption" />}
+          description={t("support-github-desctiption")}
         />
       </Section>
 
